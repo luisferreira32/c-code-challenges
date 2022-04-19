@@ -1,0 +1,10 @@
+# any more that you remember
+bin/
+.idea/
+.vscode/
+.vs
+.vscode
+.idea/
+.nvim
+CMakeFiles/
+
