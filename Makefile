@@ -23,7 +23,7 @@ build:
 	cmake --build $(CMAKE_BUILD_DIR) $(CMAKE_BUILD_ARGS)
 
 run: _pick_up_challenge
-	$(CMAKE_BUILD_DIR)/challenge-runner $(CHALLENGE_NAME)
+	$(CMAKE_BUILD_DIR)/challenge-runner $(CH_NAME)
 
 clean:
 	rm -rf bin/
