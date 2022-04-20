@@ -9,12 +9,12 @@ CH_NAME :=
 
 _pick_up_challenge:
 ifndef CH_NAME
-	$(error Missing CH_NAME variable (set it to one of the available challenges, e.g. anagram))
+	$(echo "Missing CH_NAME variable, it will run all challenges")
 endif
 
 compile:
 	cmake $(CMAKE_DEFS) \
-		-H./src \
+		-H. \
 		-B$(CMAKE_BUILD_DIR) \
 		-G Ninja \
 		-DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) 
@@ -23,7 +23,7 @@ build:
 	cmake --build $(CMAKE_BUILD_DIR) $(CMAKE_BUILD_ARGS)
 
 run: _pick_up_challenge
-	$(CMAKE_BUILD_DIR)/challenge-runner $(CH_NAME)
+	$(BIN_DIR)/runner $(CH_NAME)
 
 clean:
 	rm -rf bin/
