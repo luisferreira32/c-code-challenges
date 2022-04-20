@@ -18,6 +18,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${INSTALL_BIN_DIR})
 # Include external libraries
 include_directories(${INSTALL_INCLUDE_DIR})
 
+# Include internal libraries
+include_directories(${INSTALL_LIB_DIR})
+
+# Add the lib CMakeLists.txt
+add_subdirectory(lib)
+
 # Add the src CMakeLists.txt
 add_subdirectory(src)
 
