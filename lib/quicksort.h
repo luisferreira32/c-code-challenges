@@ -1,10 +1,4 @@
-#ifndef QUICKSORT_H
-#define QUICKSORT_H
+#pragma once
 
-/**
- * This is a mock implementation of the quick sort
- * It won't sort anything!
- */
-void quicksort_mock();
+void quicksort(int *params, int iLOW, int iHIGH);
 
-#endif /* QUICKSORT_H */
