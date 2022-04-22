@@ -25,5 +25,8 @@ build:
 run: _pick_up_challenge
 	$(BIN_DIR)/runner $(CH_NAME)
 
+valrun: _pick_up_challenge
+	valgrind $(BIN_DIR)/runner $(CH_NAME)
+
 clean:
 	rm -rf bin/

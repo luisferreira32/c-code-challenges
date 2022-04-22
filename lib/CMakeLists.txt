@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
-project(aux-libs)
+project(lib)
 
-set(SOURCE_FILES quicksort.c)
-
-add_library(quicksort STATIC ${SOURCE_FILES})
+add_library(lib STATIC 
+    quicksort.c
+    iohelper.c
+)
