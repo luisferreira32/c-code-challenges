@@ -10,17 +10,34 @@ int primes[] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
 	373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 
 	479, 487, 491, 499, 503, 509, 521, 523, 541};
 
-// ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛ
-char portugues[] = "abcdefghijklmnopqrstuvwxyz"; // áàâã = A; éèê = E; íìî = I; óòôõ = O; úùû = U.
+const char portugues[] = "abcdefghijklmnopqrstuvwxyz";
+const int PT = sizeof(portugues) / sizeof(portugues[0]);
 
 int getHash(char *str, int SIZE)
 {
-	return 0;
+	int hash = 1;
+	for (int i = 0; i < SIZE; i++)
+	{
+		char c = tolower(str[i]);
+		for (int j = 0; i < PT; j++)
+		{
+			if (c == portugues[j])
+			{
+				hash *= primes[j];
+				break;
+			}
+		}
+	}
+	return hash;
 }
 
 /* anagram challenge runner */
 void anagram_mock()
 {
+	char str_0[] = "anagram";
+	char str_1[] = "aaagmnr";
+	printf("%s = %d\n", str_0, getHash(str_0, 7));
+	printf("%s = %d\n", str_1, getHash(str_1, 7));
     printf("[INFO] Anagram mock has ran!\n");
 }
 
