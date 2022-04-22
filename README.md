@@ -25,10 +25,11 @@ make compile build run CH_NAME=$THE_NAME_OF_THE_CHALLENGE_YOU_WANT_TO_RUN
 
 # Current to do list
 - [x] block commits to main and make branch PRs the only way to advance main
-- [ ] create the base main to run the challenges and time them
-- [ ] add the `anagram` challenge
+- [x] create the base main to run the challenges and time them
+- [x] add the `anagram` challenge
 - [ ] and solve it in many weird ways of course!
 - [ ] improve a bit on cmake // make // and possibly adapt it to other builds
 - [ ] make a github action to run a challenge on PR (we have free VM minutes!)
 - [ ] add the "legacy" `sentence_word_inversion` challenge
+- [ ] make super unsafe main that executes functions with user input
  
