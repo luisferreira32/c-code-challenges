@@ -11,7 +11,6 @@ int main(int argc, const char *argv[])
   {
     printf("[INFO] About to run all challenges!\n");
     anagram_mock();
-    return 0;
   }
 
   for (size_t i = 1; i < argc; i++)
