@@ -6,4 +6,4 @@ set(SOURCE_FILES anagram.c)
 add_library(anagram STATIC ${SOURCE_FILES})
 
 # link whatever libraries your anagram solver needs
-target_link_libraries(anagram quicksort)
+target_link_libraries(anagram lib)
