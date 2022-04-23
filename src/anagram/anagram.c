@@ -1,20 +1,25 @@
-// std lib imports - the only ones allowed!
+// external libs
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // import your own headers
 #include "anagram.h"
+#include "solver1.h"
 
-// and your own functions
+// and your own helper functions
 #include "quicksort.h"
 #include "iohelper.h"
 
-/* anagram challenge runner mock */
-void anagram_mock()
+const static struct
 {
-    printf("[INFO] Anagram mock has ran!\n");
-    quicksort_mock();
-}
+    const char *solver_name;
+    char *(*solver)(char **, int, char *, int);
+} solver_map[] = {
+    {"solver1", solver1},
+    // add your solvers to the mapper
+};
+const int solver_n = 1;
 
 /**
  * ================== HELPER FUNCTIONS ==================
@@ -52,85 +57,43 @@ void anagram_dict_disposer(char **dict, int dict_word_n)
     }
 }
 
-/**
- * ================ ANAGRAM CHALLENGE 1 =================
- * This challenge consists of 50 equal sized words
- * Lower cased and without any accents
- * One input and one possible answer
- */
-
-/**
- * ----------- ANAGRAM CHALLENGE 1 SOLVER 1 -------------
- */
-char abc[] = "abcdefghijklmnopqrstuvwxyz";
-int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
-                47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
-
-int _map_primes(char c)
+/* anagram challenge runner */
+void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input, char *solution, int word_size, const char *solver)
 {
-    for (size_t i = 0; i < 26; i++)
-    {
-        if (c == abc[i])
-        {
-            return primes[i];
-        }
-    }
-}
+    char **dict = NULL;
+    char *result = NULL;
 
-/* anagram_1_solver_1 a solver for the first challenge */
-char *anagram_1_solver_1(char **dict, int dict_word_n, char *input, int word_size)
-{
-    size_t i = 0, j = 0;
-    char *solution = NULL;
-    int solution_prod = 1, aux_prod = 1;
-
-    for (i = 0; i < word_size; i++)
+    dict = anagram_dict_loader(dict_path, dict_word_n);
+    if (dict == NULL)
     {
-        solution_prod = solution_prod * _map_primes(input[i]);
+        printf("[WARNING] Failed to load dict for challenge %s...\n", solver);
+        return;
     }
 
-    for (i = 0; i < dict_word_n; i++)
+    for (size_t i = 0; i < solver_n; i++)
     {
-        aux_prod = 1;
-        j = 0;
-
-        while (dict[i][j] != '\0')
+        if (strcmp(solver_map[i].solver_name, solver) == 0)
         {
-            aux_prod = aux_prod * _map_primes(dict[i][j]);
-            j++;
-        }
-
-        if (aux_prod == solution_prod)
-        {
-            solution = dict[i];
+            result = solver_map[i].solver(dict, dict_word_n, input, word_size);
+            if (result == NULL)
+            {
+                printf("[WARNING] Didn't receive any result from solver %s?\n", solver);
+            }
+            else if (strcmp(result, solution) == 0)
+            {
+                printf("[INFO] You reached the right result with %s!\n", solver);
+            }
+            else
+            {
+                printf("[INFO] You FAILED to reach the right result with %s...\n", solver);
+            }
             break;
         }
+
+        if (result == NULL)
+        {
+            printf("[WARNING] Solver %s is not mapped.\n", solver);
+        }
     }
-
-    return solution;
-}
-
-/**
- * ----------- ANAGRAM CHALLENGE 1 SOLVER 2 -------------
- */
-/* anagram_1_solver_2 a solver for the first challenge */
-char *anagram_1_solver_2(char **dict, int dict_word_n, char *input, int word_size)
-{
-    return NULL;
-}
-
-/**
- * ================ ANAGRAM CHALLENGE 2 =================
- * This challenge consists of 50 different sized words
- * Lower cased and without any accents
- * One input and one possible answer
- */
-
-/**
- * ----------- ANAGRAM CHALLENGE 2 SOLVER 1 -------------
- */
-/* anagram_2_solver_1 a solver for the second challenge */
-char *anagram_2_solver_1(char **dict, int dict_word_n, char *input, int word_size)
-{
-    return NULL;
+    anagram_dict_disposer(dict, ANAGRAM_1_WORD_N);
 }
