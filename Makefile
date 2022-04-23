@@ -5,11 +5,11 @@ CMAKE_BUILD_TYPE := release
 CMAKE_BUILD_DIR = $(BIN_DIR)/$(CMAKE_BUILD_TYPE)
 CMAKE_DEFS :=
 CMAKE_BUILD_ARGS :=
-CH_NAME := 
+RUNNER_ARGS := 
 
-_pick_up_challenge:
-ifndef CH_NAME
-	$(echo "Missing CH_NAME variable, it will run all challenges")
+_pick_runner_args:
+ifndef RUNNER_ARGS
+	$(echo "Missing RUNNER_ARGS variable, give them in the fashion --challenge <name> --solver <name>")
 endif
 
 compile:
@@ -22,8 +22,11 @@ compile:
 build:
 	cmake --build $(CMAKE_BUILD_DIR) $(CMAKE_BUILD_ARGS)
 
-run: _pick_up_challenge
-	$(BIN_DIR)/runner $(CH_NAME)
+run: _pick_runner_args
+	$(BIN_DIR)/runner $(RUNNER_ARGS)
+
+valrun: _pick_runner_args
+	valgrind $(BIN_DIR)/runner $(RUNNER_ARGS)
 
 clean:
 	rm -rf bin/

@@ -1,44 +1,100 @@
+// external libs
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+// import your own headers
+#include "anagram.h"
+#include "solver1.h"
+
+// and your own helper functions
 #include "quicksort.h"
-#include "util.h"
+#include "iohelper.h"
 
-int primes[] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
-	67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157,
-	163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257,
-	263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367,
-	373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 
-	479, 487, 491, 499, 503, 509, 521, 523, 541};
-
-const char portugues[] = "abcdefghijklmnopqrstuvwxyz";
-const int PT = sizeof(portugues) / sizeof(portugues[0]);
-
-int getHash(char *str, int SIZE)
+const static struct
 {
-	int hash = 1;
-	for (int i = 0; i < SIZE; i++)
-	{
-		char c = tolower(str[i]);
-		for (int j = 0; i < PT; j++)
-		{
-			if (c == portugues[j])
-			{
-				hash *= primes[j];
-				break;
-			}
-		}
-	}
-	return hash;
+    const char *solver_name;
+    char *(*solver)(char **, int, char *, int);
+} solver_map[] = {
+    {"solver1", solver1},
+    // add your solvers to the mapper
+};
+const int solver_n = 1;
+
+/**
+ * ================== HELPER FUNCTIONS ==================
+ * These are helper functions for the anagram challenge
+ */
+
+/* anagram_dict_loader util function for anagram challenge */
+char **anagram_dict_loader(const char *dict_path, int dict_word_n)
+{
+    char **dict = NULL;
+
+    dict = (char **)malloc(sizeof(char *) * dict_word_n);
+    if (dict == NULL)
+    {
+        printf("[ERROR] There was an error allocating memory for the dict\n");
+        return NULL;
+    }
+
+    if (dict_reader(dict, dict_path, dict_word_n) == NULL)
+    {
+        return NULL;
+    }
+
+    // and now sort a bit!
+
+    return dict;
+}
+
+/* anagram_dict_disposer util function for anagram challenge */
+void anagram_dict_disposer(char **dict, int dict_word_n)
+{
+    if (dict != NULL)
+    {
+        dict_disposer(dict, dict_word_n);
+    }
 }
 
 /* anagram challenge runner */
-void anagram_mock()
+void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input, char *solution, int word_size, const char *solver)
 {
-	char str_0[] = "anagram";
-	char str_1[] = "aaagmnr";
-	printf("%s = %d\n", str_0, getHash(str_0, 7));
-	printf("%s = %d\n", str_1, getHash(str_1, 7));
-    printf("[INFO] Anagram mock has ran!\n");
-}
+    char **dict = NULL;
+    char *result = NULL;
 
+    dict = anagram_dict_loader(dict_path, dict_word_n);
+    if (dict == NULL)
+    {
+        printf("[WARNING] Failed to load dict for challenge %s...\n", solver);
+        return;
+    }
+
+    for (size_t i = 0; i < solver_n; i++)
+    {
+        if (strcmp(solver_map[i].solver_name, solver) == 0)
+        {
+            result = solver_map[i].solver(dict, dict_word_n, input, word_size);
+            if (result == NULL)
+            {
+                printf("[WARNING] Didn't receive any result from solver %s?\n", solver);
+            }
+            else if (strcmp(result, solution) == 0)
+            {
+                printf("[INFO] You reached the right result with %s!\n", solver);
+            }
+            else
+            {
+                printf("[INFO] You FAILED to reach the right result with %s...\n", solver);
+            }
+            break;
+        }
+
+        if (result == NULL)
+        {
+            printf("[WARNING] Solver %s is not mapped.\n", solver);
+        }
+    }
+    anagram_dict_disposer(dict, ANAGRAM_1_WORD_N);
+}
 
