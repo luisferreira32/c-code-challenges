@@ -97,3 +97,4 @@ void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *inpu
     }
     anagram_dict_disposer(dict, ANAGRAM_1_WORD_N);
 }
+

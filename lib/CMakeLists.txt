@@ -4,4 +4,5 @@ project(lib)
 add_library(lib STATIC 
     quicksort.c
     iohelper.c
+	util.c
 )
