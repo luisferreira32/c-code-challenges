@@ -15,13 +15,22 @@ Just a suggestion to ease it up:
 
 For Makefile friendly people
 ```shell
-make compile build run CH_NAME=$THE_NAME_OF_THE_CHALLENGE_YOU_WANT_TO_RUN
+make compile build run RUNNER_ARGS="--ch <challange_name> --sv <solver_name>"
 ```
 
 (Recommended) Developing flow
 1. Branch it out (or fork it up)
 2. Do your stuff and open a PR
 3. Await peer review and you've reached main!
+
+If you want to add a new challenge
+1. Create a new folder under src and add the challenge (similar cmakelists to the existing)
+2. Link it to main in the cmakelists
+3. Make it runnable from main (picking up the challenge_name)
+
+If you want to add a new solver to an existing challenge
+1. Create a new file and add your solver to the cmakelists
+2. Add it to the function mappign at the beginning of the challenge and increment counter
 
 # Current to do list
 - [x] block commits to main and make branch PRs the only way to advance main
