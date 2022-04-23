@@ -22,13 +22,18 @@ char **anagram_dict_loader(const char *, int);
 void anagram_dict_disposer(char **, int);
 
 /**
+ * This function runs an anagram challenge
+ */
+void anagram_challenge_runner(const char *, int, char *, char *, int, const char *);
+
+/**
  * ================ ANAGRAM CHALLENGE 1 =================
  */
 
 /**
- * This is the first anagram challenge with a first solver
- * It is a specific challenge - so you can solve it specifically
- * to get better times? Go to the bit!
+ * This challenge consists of 50 equal sized words
+ * Lower cased and without any accents
+ * One input and one possible answer
  */
 #define ANAGRAM_1_DICT_PATH "src/anagram/anagram_1.dict"
 #define ANAGRAM_1_WORD_N 50
@@ -37,25 +42,13 @@ void anagram_dict_disposer(char **, int);
 #define ANAGRAM_1_SOLUTION "steal"
 
 /**
- * This is the first solver for the first anagram challenge
- * It is a specific challenge with a generic solver, so
- * it can only improve from now on :)
- */
-char *anagram_1_solver_1(char **, int, char *, int);
-
-/**
- * Empty solver slot
- */
-char *anagram_1_solver_2(char **, int, char *, int);
-
-/**
- * ================ ANAGRAM CHALLENGE 1 =================
+ * ================ ANAGRAM CHALLENGE 2 =================
  */
 
 /**
- * This is the first anagram challenge with a first solver
- * It is a specific challenge - so you can solve it specifically
- * to get better times? Go to the bit!
+ * This challenge consists of 50 different sized words
+ * Lower cased and without any accents
+ * One input and one possible answer
  */
 #define ANAGRAM_2_DICT_PATH "src/anagram/anagram_2.dict"
 #define ANAGRAM_2_WORD_N 50
