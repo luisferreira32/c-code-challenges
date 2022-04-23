@@ -29,8 +29,9 @@ If you want to add a new challenge
 3. Make it runnable from main (picking up the challenge_name)
 
 If you want to add a new solver to an existing challenge
-1. Create a new file and add your solver to the cmakelists
-2. Add it to the function mappign at the beginning of the challenge and increment counter
+1. Create a new file and a function inside with the SAME NAME (will be important for ci)
+2. Add your solver to the cmakelists
+3. Add it to the function mappign at the beginning of the challenge and increment counter
 
 # Current to do list
 - [x] block commits to main and make branch PRs the only way to advance main
