@@ -43,7 +43,7 @@ char **anagram_dict_loader(const char *dict_path, int dict_word_n)
         return NULL;
     }
 
-    // and now sort a bit!
+    // and now *shuffle* a bit!
 
     return dict;
 }

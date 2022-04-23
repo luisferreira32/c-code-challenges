@@ -25,7 +25,7 @@ char *solver1(char **dict, int dict_word_n, char *input, int word_size)
 {
     size_t i = 0, j = 0;
     char *solution = NULL;
-    int solution_prod = 1, aux_prod = 1;
+    long int solution_prod = 1, aux_prod = 1;
 
     for (i = 0; i < word_size; i++)
     {
