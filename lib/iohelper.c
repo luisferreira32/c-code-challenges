@@ -1,7 +1,6 @@
 // std lib imports - the only ones allowed!
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 // import your own headers
 #include "iohelper.h"
@@ -27,7 +26,7 @@ char **dict_reader(char **dict, const char *filename, int dict_size)
         // find word size
         for (i = 0; i < 50; i++)
         {
-            if (buf[i] == '\n' || buf[i] == '\0')
+            if (buf[i] == '\n' || buf[i] == '\0' || buf[i] == '\r')
             {
                 break;
             }
