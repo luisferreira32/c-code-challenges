@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - run: pwd
+      - run: ls -ahl
       
       - name: Compile and build code
         run: make compile build
