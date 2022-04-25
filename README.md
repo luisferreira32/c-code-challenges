@@ -40,7 +40,7 @@ If you want to add a new solver to an existing challenge
 - [x] add the `anagram` challenge
 - [ ] and solve it in many weird ways of course!
 - [ ] improve a bit on cmake // make // and possibly adapt it to other builds
-- [ ] make a github action to run a challenge on PR (we have free VM minutes!)
+- [x] make a github action to run a challenge on PR (we have free VM minutes!)
 - [ ] add the "legacy" `sentence_word_inversion` challenge
 - [ ] make super unsafe main that executes functions with user input
  
