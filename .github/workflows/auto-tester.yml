@@ -11,12 +11,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
       
       - name: Compile and build code
         run: make compile build
 
+      - run: git fetch main
       - run: git diff main
       
       - name: Run changes
