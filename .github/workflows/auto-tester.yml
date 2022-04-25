@@ -10,14 +10,14 @@ jobs:
       options: --user root # workaround for known permissions issue in checkout action
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
         with:
           fetch-depth: 2
       
       - name: Compile and build code
         run: make compile build
 
-      - run: git diff --name-only HEAD origin/main/HEAD
+      - run: git diff --name-only HEAD..origin/main
       
       - name: Run changes
         run: $(pwd)/$RUNNER_BIN --ch anagram1 --sv solver1
