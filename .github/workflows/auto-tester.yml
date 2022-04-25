@@ -15,8 +15,7 @@ jobs:
       - name: Compile and build code
         run: make compile build
 
-      - run: git fetch main
-      - run: git diff main
+      - run: git diff --name-only origin/main
       
       - name: Run changes
         run: $(pwd)/$RUNNER_BIN --ch anagram1 --sv solver1
