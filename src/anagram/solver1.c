@@ -50,5 +50,5 @@ char *solver1(char **dict, int dict_word_n, char *input, int word_size)
         }
     }
 
-    return NULL;
+    return solution;
 }
