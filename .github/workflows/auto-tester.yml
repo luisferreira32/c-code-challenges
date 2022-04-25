@@ -21,5 +21,4 @@ jobs:
       - name: Run changes
         id: run_changes
         run: |
-          output=$(git diff --name-only HEAD..origin/main | python3 scripts/prcheck.py)
-          
+          git diff --name-only HEAD..origin/main | python3 scripts/prcheck.py
