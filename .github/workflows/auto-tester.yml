@@ -17,8 +17,12 @@ jobs:
       - name: Compile and build code
         run: make compile build
 
-      # will exit successfully or with error depending on test results
       - name: Run changes
         id: run_changes
         run: |
-          exit $(git diff --name-only HEAD..origin/main | python3 scripts/prcheck.py)
+          output=$(git diff --name-only HEAD..origin/main | python3 scripts/prcheck.py)
+          echo ::set-output name=error::$output
+
+      # will exit successfully or with error depending on test results
+      - name: Check success
+        run: exit ${{ steps.run_changes.outputs.error }}
