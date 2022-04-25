@@ -27,7 +27,7 @@ for line in lines:
         continue
     split_path = (split_dot[0]).split('/')
     if split_path[0] != 'src':
-        logging.info("Only changes on src/ are tested. Skipping:\n  >> %s", line)
+        logging.warning("Only changes on src/ are tested. Skipping:\n  >> %s", line)
         continue
     if len(split_path) < 3:
         logging.warning("Changes on main detected, autotest not prepared for this scenario.")
@@ -37,7 +37,7 @@ for line in lines:
     challenge_name = split_path[1]
 
     if filename == challenge_name:
-        logging.info("Challenge %s was modified, testing all solvers.",challenge_name)
+        logging.info("Challenge %s was modified, testing all solvers for all updated versions in %s.tracker.",challenge_name)
         # WARNING: this might break in the future...
         for p in os.listdir('src/'+challenge_name):
             pfilename = p.split(".")[0]
