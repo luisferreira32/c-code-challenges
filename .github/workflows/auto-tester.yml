@@ -1,0 +1,24 @@
+name: Auto tester
+on: [pull_request]
+env:
+  RUNNER_BIN: /bin/runner
+jobs:
+  run-c-challenges:
+    runs-on: ubuntu-latest
+    container: 
+      image: luisferreira32/crunner:latest
+      options: --user root # workaround for known permissions issue in checkout action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 2
+      
+      - name: Compile and build code
+        run: make compile build
+
+      # will exit successfully or with error depending on test results
+      - name: Run changes
+        id: run_changes
+        run: |
+          git diff --name-only HEAD..origin/main | python3 scripts/prcheck.py

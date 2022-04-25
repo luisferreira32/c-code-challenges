@@ -24,7 +24,7 @@ void anagram_dict_disposer(char **, int);
 /**
  * This function runs an anagram challenge
  */
-void anagram_challenge_runner(const char *, int, char *, char *, int, const char *);
+int anagram_challenge_runner(const char *, int, char *, char *, int, const char *);
 
 /**
  * ================ ANAGRAM CHALLENGE 1 =================
@@ -35,7 +35,7 @@ void anagram_challenge_runner(const char *, int, char *, char *, int, const char
  * Lower cased and without any accents
  * One input and one possible answer
  */
-#define ANAGRAM_1_DICT_PATH "src/anagram/anagram_1.dict"
+#define ANAGRAM_1_DICT_PATH "src/anagram/anagram1.dict"
 #define ANAGRAM_1_WORD_N 50
 #define ANAGRAM_1_INPUT "least"
 #define ANAGRAM_1_INPUT_SIZE 5
@@ -50,7 +50,7 @@ void anagram_challenge_runner(const char *, int, char *, char *, int, const char
  * Lower cased and without any accents
  * One input and one possible answer
  */
-#define ANAGRAM_2_DICT_PATH "src/anagram/anagram_2.dict"
+#define ANAGRAM_2_DICT_PATH "src/anagram/anagram2.dict"
 #define ANAGRAM_2_WORD_N 50
 #define ANAGRAM_2_INPUT "car"
 #define ANAGRAM_2_INPUT_SIZE 3

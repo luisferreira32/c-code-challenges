@@ -5,7 +5,7 @@
 # Some requirements
 To compile (choose at will):
 - gcc 9.4
-- clang-12
+- clang
 
 Just a suggestion to ease it up:
 - Cmake 2.23
@@ -27,6 +27,7 @@ If you want to add a new challenge
 1. Create a new folder under src and add the challenge (similar cmakelists to the existing)
 2. Link it to main in the cmakelists
 3. Make it runnable from main (picking up the challenge_name)
+4. Add a challenge.tracker with the versions of the challenge you keep (e.g. `anagram1`)
 
 If you want to add a new solver to an existing challenge
 1. Create a new file and a function inside with the SAME NAME (will be important for ci)
@@ -39,7 +40,7 @@ If you want to add a new solver to an existing challenge
 - [x] add the `anagram` challenge
 - [ ] and solve it in many weird ways of course!
 - [ ] improve a bit on cmake // make // and possibly adapt it to other builds
-- [ ] make a github action to run a challenge on PR (we have free VM minutes!)
+- [x] make a github action to run a challenge on PR (we have free VM minutes!)
 - [ ] add the "legacy" `sentence_word_inversion` challenge
 - [ ] make super unsafe main that executes functions with user input
  
