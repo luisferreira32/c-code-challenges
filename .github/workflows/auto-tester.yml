@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: luisferreira32/crunner:latest
-      volumes:
-        - $GITHUB_WORKSPACE:/home/runner/c-code-challenges/
+      #volumes:
+      #  - $GITHUB_WORKSPACE:/home/runner/c-code-challenges/
     steps:
       - name: Checkout
         uses: actions/checkout@v3
