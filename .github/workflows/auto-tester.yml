@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: luisferreira32/crunner:latest
-      option: --user root # workaround for known permissions issue in checkout action
+      options: --user root # workaround for known permissions issue in checkout action
     steps:
       - run: pwd
       - run: ls -ahl
