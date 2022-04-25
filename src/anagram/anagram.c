@@ -59,16 +59,17 @@ void anagram_dict_disposer(char **dict, int dict_word_n)
 }
 
 /* anagram challenge runner */
-void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input, char *solution, int word_size, const char *solver)
+int anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input, char *solution, int word_size, const char *solver)
 {
     char **dict = NULL;
     char *result = NULL;
+    int error = 0;
 
     dict = anagram_dict_loader(dict_path, dict_word_n);
     if (dict == NULL)
     {
         printf("[WARNING] Failed to load dict for challenge %s...\n", solver);
-        return;
+        return 1;
     }
 
     for (size_t i = 0; i < solver_n; i++)
@@ -79,6 +80,7 @@ void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *inpu
             if (result == NULL)
             {
                 printf("[WARNING] Didn't receive any result from solver %s?\n", solver);
+                error = 1;
             }
             else if (strcmp(result, solution) == 0)
             {
@@ -87,6 +89,7 @@ void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *inpu
             else
             {
                 printf("[INFO] You FAILED to reach the right result with %s...\n", solver);
+                error = 1;
             }
             break;
         }
@@ -97,5 +100,7 @@ void anagram_challenge_runner(const char *dict_path, int dict_word_n, char *inpu
         }
     }
     anagram_dict_disposer(dict, ANAGRAM_1_WORD_N);
+
+    return error;
 }
 

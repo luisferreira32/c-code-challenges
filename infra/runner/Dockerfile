@@ -14,7 +14,7 @@ RUN apt-get install -y \
 # to make it smoother in github actions
 RUN apt-get install -y \
     git \
-    python \
+    python3 \
     jq
 
 RUN apt-get clean

@@ -17,14 +17,8 @@ jobs:
       - name: Compile and build code
         run: make compile build
 
-      - id: check_diffs
-        run: |
-          git diff --name-only HEAD..origin/main | python scripts/prcheck.py
-          content=`cat run.json`
-          echo "::set-output name=torun::$content"
-      
+      # will exit successfully or with error depending on test results
       - name: Run changes
+        id: run_changes
         run: |
-          cat run.json | jq
-          echo "${{fromJson(steps.check_diffs.outputs.torun)}}"
-          $(pwd)/$RUNNER_BIN --ch anagram1 --sv solver1
+          exit $(git diff --name-only HEAD..origin/main | python3 scripts/prcheck.py)

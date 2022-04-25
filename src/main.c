@@ -1,6 +1,7 @@
 // external libs
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 // include all challenge libs to be able to call this runner freely
 #include "anagram.h"
@@ -58,16 +59,27 @@ int main(int argc, const char *argv[])
   }
 
   // run the requested challenge
+  int error = 0;
   if (strcmp(challenge_name, "anagram1") == 0)
   {
-    anagram_challenge_runner(ANAGRAM_1_DICT_PATH, ANAGRAM_1_WORD_N, ANAGRAM_1_INPUT, ANAGRAM_1_SOLUTION, ANAGRAM_1_INPUT_SIZE, solver_name);
+    error = anagram_challenge_runner(ANAGRAM_1_DICT_PATH, ANAGRAM_1_WORD_N, ANAGRAM_1_INPUT, ANAGRAM_1_SOLUTION, ANAGRAM_1_INPUT_SIZE, solver_name);
     printf("[INFO] Finished the running the %s challenge...\n", challenge_name);
   }
   else if (strcmp(challenge_name, "anagram2") == 0)
   {
-    anagram_challenge_runner(ANAGRAM_2_DICT_PATH, ANAGRAM_2_WORD_N, ANAGRAM_2_INPUT, ANAGRAM_2_SOLUTION, ANAGRAM_2_INPUT_SIZE, solver_name);
+    error = anagram_challenge_runner(ANAGRAM_2_DICT_PATH, ANAGRAM_2_WORD_N, ANAGRAM_2_INPUT, ANAGRAM_2_SOLUTION, ANAGRAM_2_INPUT_SIZE, solver_name);
     printf("[INFO] Finished the running the %s challenge...\n", challenge_name);
   }
+  else
+  {
+    printf("[WARNING] Given challenge %s was not in the database...\n", challenge_name);
+    error = 1;
+  }
 
-  return 0;
+  if (error)
+  {
+    fprintf(stderr, "[ERROR] Error running challenge %s!\n", challenge_name);
+  }
+  
+  return error;
 }
