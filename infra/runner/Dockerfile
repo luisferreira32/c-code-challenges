@@ -15,3 +15,4 @@ RUN apt-get clean
 RUN useradd -ms /bin/bash runner
 USER runner
 WORKDIR /home/runner
+ENTRYPOINT ["bash"]
