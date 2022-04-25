@@ -5,15 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: luisferreira32/crunner:latest
-      #volumes:
-      #  - $GITHUB_WORKSPACE:/home/runner/c-code-challenges/
+      option: --user root # workaround for known permissions issue in checkout action
     steps:
       - run: pwd
       - run: ls -ahl
       - run: whoami
-      
+
       - name: Checkout
         uses: actions/checkout@v3
+
+      - run: git status
       
       - name: Compile and build code
         run: make compile build
