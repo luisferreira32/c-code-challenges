@@ -27,6 +27,7 @@ If you want to add a new challenge
 1. Create a new folder under src and add the challenge (similar cmakelists to the existing)
 2. Link it to main in the cmakelists
 3. Make it runnable from main (picking up the challenge_name)
+4. Add a challenge.tracker with the versions of the challenge you keep (e.g. `anagram1`)
 
 If you want to add a new solver to an existing challenge
 1. Create a new file and a function inside with the SAME NAME (will be important for ci)
