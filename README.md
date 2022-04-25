@@ -5,7 +5,7 @@
 # Some requirements
 To compile (choose at will):
 - gcc 9.4
-- clang-12
+- clang
 
 Just a suggestion to ease it up:
 - Cmake 2.23
