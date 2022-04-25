@@ -37,7 +37,7 @@ for line in lines:
     challenge_name = split_path[1]
 
     if filename == challenge_name:
-        logging.info("Challenge %s was modified, testing all solvers for all updated versions in %s.tracker.",challenge_name)
+        logging.info("Challenge %s was modified, testing all solvers for all updated versions in %s.tracker.",challenge_name, challenge_name)
         # WARNING: this might break in the future...
         for p in os.listdir('src/'+challenge_name):
             pfilename = p.split(".")[0]
