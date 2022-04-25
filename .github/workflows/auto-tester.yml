@@ -4,7 +4,7 @@ jobs:
   run-c-challenges:
     runs-on: ubuntu-latest
     container: 
-      image: 
+      image: luisferreira32/crunner:latest
       volumes:
         - $GITHUB_WORKSPACE:/home/runner/c-code-challenges/
     steps:
