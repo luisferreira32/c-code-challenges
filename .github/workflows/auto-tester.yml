@@ -10,7 +10,7 @@ jobs:
       options: --user root # workaround for known permissions issue in checkout action
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           fetch-depth: 2
       
