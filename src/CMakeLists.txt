@@ -17,3 +17,8 @@ add_executable(${APP_EXE} ${SOURCE_FILES})
 add_subdirectory(anagram)
 target_link_libraries(${APP_EXE} anagram)
 include_directories(anagram)
+
+# wordinversion challenge
+add_subdirectory(wordinversion)
+target_link_libraries(${APP_EXE} wordinversion)
+include_directories(wordinversion)

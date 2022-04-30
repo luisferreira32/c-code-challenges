@@ -7,6 +7,7 @@
 
 // include all challenge libs to be able to call this runner freely
 #include "anagram.h"
+#include "wordinversion.h"
 
 void print_helper()
 {
@@ -24,6 +25,7 @@ const static struct
   int (*challenge_runner)(int, const char *, clock_t *);
 } challenge_map[] = {
     {"anagram", anagram_challenge_runner},
+    {"wordinversion", wordinversion_challenge_runner},
     // add your challenge runners to the mapper
 };
 const int challenge_n = 1;
