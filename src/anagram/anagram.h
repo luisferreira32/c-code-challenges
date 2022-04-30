@@ -1,11 +1,18 @@
 #ifndef ANAGRAM_H
 #define ANAGRAM_H
 
-/**
- * This is a mock implementation of the anagram challenge
- * It won't do anything!
- */
-void anagram_mock();
+/* Definition of common structs */
+typedef struct
+{
+    const char *dict_path;
+    int dict_word_n;
+    char *input_word;
+    int input_size;
+    char *solution;
+} Input;
+
+/* and common macros */
+#define REPETITIONS 10000
 
 /**
  * ================== HELPER FUNCTIONS ==================
@@ -24,7 +31,7 @@ void anagram_dict_disposer(char **, int);
 /**
  * This function runs an anagram challenge
  */
-int anagram_challenge_runner(const char *, int, char *, char *, int, const char *);
+int anagram_challenge_runner(int, const char *, clock_t *);
 
 /**
  * ================ ANAGRAM CHALLENGE 1 =================
@@ -55,10 +62,5 @@ int anagram_challenge_runner(const char *, int, char *, char *, int, const char 
 #define ANAGRAM_2_INPUT "car"
 #define ANAGRAM_2_INPUT_SIZE 3
 #define ANAGRAM_2_SOLUTION "arc"
-
-/**
- * Empty solver slot
- */
-char *anagram_2_solver_1(char **, int, char *, int);
 
 #endif /* ANAGRAM_H */

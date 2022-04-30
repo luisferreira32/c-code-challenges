@@ -1,7 +1,9 @@
 // external libs
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 
 // include all challenge libs to be able to call this runner freely
 #include "anagram.h"
@@ -15,6 +17,16 @@ void print_helper()
   printf("                challenge solver to run, e.g. solver1 \n");
   printf("       --help   to see this man page again\n");
 }
+
+const static struct
+{
+  char *challenge_name;
+  int (*challenge_runner)(int, const char *, clock_t *);
+} challenge_map[] = {
+    {"anagram", anagram_challenge_runner},
+    // add your challenge runners to the mapper
+};
+const int challenge_n = 1;
 
 int main(int argc, const char *argv[])
 {
@@ -59,27 +71,56 @@ int main(int argc, const char *argv[])
   }
 
   // run the requested challenge
-  int error = 0;
-  if (strcmp(challenge_name, "anagram1") == 0)
+  int error = 0, challenge_version = 1, i = 0;
+  char challenge_name_prunned[50];
+  clock_t timer;
+
+  for (i = 0; challenge_name[i] != '\0'; i++)
   {
-    error = anagram_challenge_runner(ANAGRAM_1_DICT_PATH, ANAGRAM_1_WORD_N, ANAGRAM_1_INPUT, ANAGRAM_1_SOLUTION, ANAGRAM_1_INPUT_SIZE, solver_name);
-    printf("[INFO] Finished the running the %s challenge...\n", challenge_name);
   }
-  else if (strcmp(challenge_name, "anagram2") == 0)
+  challenge_version = atoi(&challenge_name[i - 1]);
+  if (challenge_version == 0)
   {
-    error = anagram_challenge_runner(ANAGRAM_2_DICT_PATH, ANAGRAM_2_WORD_N, ANAGRAM_2_INPUT, ANAGRAM_2_SOLUTION, ANAGRAM_2_INPUT_SIZE, solver_name);
-    printf("[INFO] Finished the running the %s challenge...\n", challenge_name);
+    printf("[WARNING] Challenge version should not be zero, exiting now...\n");
+    return 1;
   }
-  else
+
+  if (i >= 50)
   {
-    printf("[WARNING] Given challenge %s was not in the database...\n", challenge_name);
-    error = 1;
+    printf("[WARNING] Keep challenge names under 50 chars, exiting now...\n");
+    return 1;
+  }
+
+  if (strcpy(challenge_name_prunned, challenge_name) == NULL)
+  {
+    printf("[ERROR] Unexpected error! Failed to get the challenge name.\n");
+    return 1;
+  }
+
+  challenge_name_prunned[i - 1] = '\0';
+
+  for (size_t i = 0; i < challenge_n; i++)
+  {
+    if (strcmp(challenge_map[i].challenge_name, challenge_name_prunned) == 0)
+    {
+      error = challenge_map[i].challenge_runner(challenge_version, solver_name, &timer);
+      break;
+    }
+    else if (i == challenge_n)
+    {
+      printf("[WARNING] Given challenge %s was not in the database...\n", challenge_name);
+      error = 1;
+    }
   }
 
   if (error)
   {
     fprintf(stderr, "[ERROR] Error running challenge %s!\n", challenge_name);
   }
-  
+  else
+  {
+    printf("[INFO] Challenge %s successfully ran. Total clocks taken by CPU: %lu\n", challenge_name, timer);
+  }
+
   return error;
 }

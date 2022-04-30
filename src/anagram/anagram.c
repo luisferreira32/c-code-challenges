@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 // import your own headers
 #include "anagram.h"
@@ -12,6 +13,18 @@
 #include "quicksort.h"
 #include "iohelper.h"
 
+/*
+ * Input mapping for anagram challenges
+ */
+Input input_map[2] = {
+    {ANAGRAM_1_DICT_PATH, ANAGRAM_1_WORD_N, ANAGRAM_1_INPUT, ANAGRAM_1_INPUT_SIZE, ANAGRAM_1_SOLUTION},
+    {ANAGRAM_2_DICT_PATH, ANAGRAM_2_WORD_N, ANAGRAM_2_INPUT, ANAGRAM_2_INPUT_SIZE, ANAGRAM_2_SOLUTION},
+};
+const int input_n = 2;
+
+/*
+ * Solver mapping for anagram challenges
+ */
 const static struct
 {
     const char *solver_name;
@@ -59,16 +72,24 @@ void anagram_dict_disposer(char **dict, int dict_word_n)
 }
 
 /* anagram challenge runner */
-int anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input, char *solution, int word_size, const char *solver)
+int anagram_challenge_runner(int challenge_n, const char *solver, clock_t *timer)
 {
+    if (challenge_n > input_n)
+    {
+        printf("[WARNING] Failed to load input for challenge anagram%d...\n", challenge_n);
+        return 1;
+    }
+    challenge_n--; // indexing actually starts at zero ;)
+
     char **dict = NULL;
     char *result = NULL;
     int error = 0;
+    clock_t start_t, end_t;
 
-    dict = anagram_dict_loader(dict_path, dict_word_n);
+    dict = anagram_dict_loader(input_map[challenge_n].dict_path, input_map[challenge_n].dict_word_n);
     if (dict == NULL)
     {
-        printf("[WARNING] Failed to load dict for challenge %s...\n", solver);
+        printf("[WARNING] Failed to load dict for challenge anagram%d...\n", challenge_n);
         return 1;
     }
 
@@ -76,13 +97,28 @@ int anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input
     {
         if (strcmp(solver_map[i].solver_name, solver) == 0)
         {
-            result = solver_map[i].solver(dict, dict_word_n, input, word_size);
+            /*
+             * ===== IMPORTANT =====
+             * We have to wrap the timer around our solver run to return in to main.
+             * But give it a couple repetitions to get a nicer sum of running times.
+             */
+
+            // timer start
+            start_t = clock();
+            for (size_t j = 0; j < REPETITIONS; j++)
+            {
+                result = solver_map[i].solver(dict, input_map[challenge_n].dict_word_n, input_map[challenge_n].input_word, input_map[challenge_n].input_size);
+            }
+            end_t = clock();
+            // timer end
+
+            *timer = end_t - start_t;
             if (result == NULL)
             {
                 printf("[WARNING] Didn't receive any result from solver %s?\n", solver);
                 error = 1;
             }
-            else if (strcmp(result, solution) == 0)
+            else if (strcmp(result, input_map[challenge_n].solution) == 0)
             {
                 printf("[INFO] You reached the right result with %s!\n", solver);
             }
@@ -97,10 +133,10 @@ int anagram_challenge_runner(const char *dict_path, int dict_word_n, char *input
         if (result == NULL)
         {
             printf("[WARNING] Solver %s is not mapped.\n", solver);
+            error = 1;
         }
     }
-    anagram_dict_disposer(dict, ANAGRAM_1_WORD_N);
+    anagram_dict_disposer(dict, input_map[challenge_n].dict_word_n);
 
     return error;
 }
-
