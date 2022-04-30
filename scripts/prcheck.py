@@ -59,7 +59,7 @@ for challenge, solver_list in to_run.items():
     executable = os.getcwd()+os.getenv("RUNNER_BIN")
     for solver in solver_list:
         # WARNING: this might break in the future...
-        with open('src/'+challenge_name+'/'+challenge_name+'.tracker') as f:
+        with open('src/'+challenge+'/'+challenge+'.tracker') as f:
             challenge_ids = [line.strip() for line in f]
 
         for challenge_id in challenge_ids:

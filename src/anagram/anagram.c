@@ -16,11 +16,10 @@
 /*
  * Input mapping for anagram challenges
  */
-Input input_map[2] = {
+AnagramInput an_input_map[2] = {
     {ANAGRAM_1_DICT_PATH, ANAGRAM_1_WORD_N, ANAGRAM_1_INPUT, ANAGRAM_1_INPUT_SIZE, ANAGRAM_1_SOLUTION},
     {ANAGRAM_2_DICT_PATH, ANAGRAM_2_WORD_N, ANAGRAM_2_INPUT, ANAGRAM_2_INPUT_SIZE, ANAGRAM_2_SOLUTION},
 };
-const int input_n = 2;
 
 /*
  * Solver mapping for anagram challenges
@@ -29,11 +28,10 @@ const static struct
 {
     const char *solver_name;
     char *(*solver)(char **, int, char *, int);
-} solver_map[] = {
-    {"solver1", solver1},
+} an_solver_map[] = {
+    {"solver1", an_solver1},
     // add your solvers to the mapper
 };
-const int solver_n = 1;
 
 /**
  * ================== HELPER FUNCTIONS ==================
@@ -74,7 +72,7 @@ void anagram_dict_disposer(char **dict, int dict_word_n)
 /* anagram challenge runner */
 int anagram_challenge_runner(int challenge_n, const char *solver, clock_t *timer)
 {
-    if (challenge_n > input_n)
+    if (challenge_n > AN_INPUT_N)
     {
         printf("[WARNING] Failed to load input for challenge anagram%d...\n", challenge_n);
         return 1;
@@ -86,16 +84,16 @@ int anagram_challenge_runner(int challenge_n, const char *solver, clock_t *timer
     int error = 0;
     clock_t start_t, end_t;
 
-    dict = anagram_dict_loader(input_map[challenge_n].dict_path, input_map[challenge_n].dict_word_n);
+    dict = anagram_dict_loader(an_input_map[challenge_n].dict_path, an_input_map[challenge_n].dict_word_n);
     if (dict == NULL)
     {
         printf("[WARNING] Failed to load dict for challenge anagram%d...\n", challenge_n);
         return 1;
     }
 
-    for (size_t i = 0; i < solver_n; i++)
+    for (size_t i = 0; i < AN_SOLVER_N; i++)
     {
-        if (strcmp(solver_map[i].solver_name, solver) == 0)
+        if (strcmp(an_solver_map[i].solver_name, solver) == 0)
         {
             /*
              * ===== IMPORTANT =====
@@ -105,9 +103,9 @@ int anagram_challenge_runner(int challenge_n, const char *solver, clock_t *timer
 
             // timer start
             start_t = clock();
-            for (size_t j = 0; j < REPETITIONS; j++)
+            for (size_t j = 0; j < AN_REPETITIONS; j++)
             {
-                result = solver_map[i].solver(dict, input_map[challenge_n].dict_word_n, input_map[challenge_n].input_word, input_map[challenge_n].input_size);
+                result = an_solver_map[i].solver(dict, an_input_map[challenge_n].dict_word_n, an_input_map[challenge_n].input_word, an_input_map[challenge_n].input_size);
             }
             end_t = clock();
             // timer end
@@ -118,7 +116,7 @@ int anagram_challenge_runner(int challenge_n, const char *solver, clock_t *timer
                 printf("[WARNING] Didn't receive any result from solver %s?\n", solver);
                 error = 1;
             }
-            else if (strcmp(result, input_map[challenge_n].solution) == 0)
+            else if (strcmp(result, an_input_map[challenge_n].solution) == 0)
             {
                 printf("[INFO] You reached the right result with %s!\n", solver);
             }
@@ -130,13 +128,13 @@ int anagram_challenge_runner(int challenge_n, const char *solver, clock_t *timer
             break;
         }
 
-        if (result == NULL)
+        if (result == NULL && i + 1 == AN_SOLVER_N)
         {
             printf("[WARNING] Solver %s is not mapped.\n", solver);
             error = 1;
         }
     }
-    anagram_dict_disposer(dict, input_map[challenge_n].dict_word_n);
+    anagram_dict_disposer(dict, an_input_map[challenge_n].dict_word_n);
 
     return error;
 }
