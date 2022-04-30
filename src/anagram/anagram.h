@@ -63,9 +63,4 @@ int anagram_challenge_runner(int, const char *, clock_t *);
 #define ANAGRAM_2_INPUT_SIZE 3
 #define ANAGRAM_2_SOLUTION "arc"
 
-/**
- * Empty solver slot
- */
-char *anagram_2_solver_1(char **, int, char *, int);
-
 #endif /* ANAGRAM_H */
