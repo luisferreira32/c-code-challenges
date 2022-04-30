@@ -28,7 +28,7 @@ const static struct
     {"wordinversion", wordinversion_challenge_runner},
     // add your challenge runners to the mapper
 };
-const int challenge_n = 1;
+const int challenge_n = 2;
 
 int main(int argc, const char *argv[])
 {
@@ -108,7 +108,7 @@ int main(int argc, const char *argv[])
       error = challenge_map[i].challenge_runner(challenge_version, solver_name, &timer);
       break;
     }
-    else if (i == challenge_n)
+    else if (i + 1 == challenge_n)
     {
       printf("[WARNING] Given challenge %s was not in the database...\n", challenge_name);
       error = 1;

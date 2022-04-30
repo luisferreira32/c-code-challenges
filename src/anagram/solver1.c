@@ -21,7 +21,7 @@ int _map_primes(char c)
 }
 
 /* solver1 for the anagram challenge */
-char *solver1(char **dict, int dict_word_n, char *input, int word_size)
+char *an_solver1(char **dict, int dict_word_n, char *input, int word_size)
 {
     size_t i = 0, j = 0;
     char *solution = NULL;

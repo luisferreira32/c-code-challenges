@@ -6,6 +6,3 @@ add_library(wordinversion STATIC
     solver1.c
     solver2.c
 )
-
-# link whatever libraries your anagram solver needs
-target_link_libraries(anagram lib)

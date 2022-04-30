@@ -9,10 +9,12 @@ typedef struct
     char *input_word;
     int input_size;
     char *solution;
-} Input;
+} AnagramInput;
 
 /* and common macros */
-#define REPETITIONS 10000
+#define AN_REPETITIONS 10000
+#define AN_INPUT_N 2
+#define AN_SOLVER_N 1
 
 /**
  * ================== HELPER FUNCTIONS ==================
