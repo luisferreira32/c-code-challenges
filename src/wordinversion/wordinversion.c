@@ -10,7 +10,7 @@
 #include "solver2.h"
 
 /*
- * Input mapping for anagram challenges
+ * Input mapping for wordinversion challenges
  */
 WordInversionInput wi_input_map[3] = {
     {WORDINVERSION_1_SENTENCE, WORDINVERSION_1_INPUT_SIZE, WORDINVERSION_1_SOLUTION},
@@ -19,7 +19,7 @@ WordInversionInput wi_input_map[3] = {
 };
 
 /*
- * Solver mapping for anagram challenges
+ * Solver mapping for wordinversion challenges
  */
 const static struct
 {
@@ -41,7 +41,7 @@ int wordinversion_challenge_runner(int challenge_n, const char *solver, clock_t 
 {
     if (challenge_n > WI_INPUT_N)
     {
-        printf("[WARNING] Failed to load input for challenge anagram%d...\n", challenge_n);
+        printf("[WARNING] Failed to load input for challenge wordinversion%d...\n", challenge_n);
         return 1;
     }
     challenge_n--; // indexing actually starts at zero ;)

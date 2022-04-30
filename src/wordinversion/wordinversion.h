@@ -40,11 +40,11 @@ int wordinversion_challenge_runner(int, const char *, clock_t *);
  */
 
 /**
- * Some spaces at the end really mess you up? Unlucky 13...
+ * Some spaces at the really mess you up? Unlucky 13...
  */
-#define WORDINVERSION_2_SENTENCE "Hello world  "
+#define WORDINVERSION_2_SENTENCE " Hello world "
 #define WORDINVERSION_2_INPUT_SIZE 13
-#define WORDINVERSION_2_SOLUTION "  world Hello"
+#define WORDINVERSION_2_SOLUTION " world Hello "
 
 /**
  * ================ WORDINVERSION CHALLENGE 3 =================
