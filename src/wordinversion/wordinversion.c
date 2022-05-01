@@ -8,6 +8,7 @@
 #include "wordinversion.h"
 #include "solver1.h"
 #include "solver2.h"
+#include "solver3.h"
 
 /*
  * Input mapping for wordinversion challenges
@@ -28,6 +29,7 @@ const static struct
 } wi_solver_map[] = {
     {"solver1", wi_solver1},
     {"solver2", wi_solver2},
+    {"solver3", wi_solver3},
     // add your solvers to the mapper
 };
 

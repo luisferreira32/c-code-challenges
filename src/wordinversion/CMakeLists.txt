@@ -5,4 +5,5 @@ add_library(wordinversion STATIC
     wordinversion.c
     solver1.c
     solver2.c
+    solver3.c
 )

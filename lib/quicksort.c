@@ -14,11 +14,11 @@ void quicksort(int *params, int iLOW, int iHIGH)
 			if (params[i] <= pivot)
 			{
 				p++;
-				SWAP(params, p, i);
+				int_SWAP(params, p, i);
 			}
 		}
 		++p;
-		SWAP(params, p, iHIGH);
+		int_SWAP(params, p, iHIGH);
 		// Recursive, yay
 		quicksort(params, iLOW, i - 1);
 		quicksort(params, i + 1, iHIGH);
