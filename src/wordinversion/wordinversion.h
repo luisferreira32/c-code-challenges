@@ -12,7 +12,7 @@ typedef struct
 /* and common macros */
 #define WI_REPETITIONS 1
 #define WI_INPUT_N 3
-#define WI_SOLVER_N 2
+#define WI_SOLVER_N 3
 
 /**
  * ===================== HELPER FUNCTIONS =====================
