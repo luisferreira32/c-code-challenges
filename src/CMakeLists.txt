@@ -22,3 +22,4 @@ include_directories(anagram)
 add_subdirectory(wordinversion)
 target_link_libraries(${APP_EXE} wordinversion)
 include_directories(wordinversion)
+
